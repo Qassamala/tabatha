@@ -1,35 +1,25 @@
 import React from "react";
 import ActiveWorkoutView from "../views/ActiveWorkoutView";
 
-
-
 function ActiveWorkoutPresenter(props) {
     const [timeLeft, setTimeLeft] = React.useState(props.model.workOutInterval);
-    const [restingTimeLeft, setRestingTimeLeft] = React.useState(props.model.restingInterval);
-    const [resting, setResting] = React.useState(false);
-    
+    const [restingTimeLeft, setRestingTimeLeft] = React.useState(props.model.restingInterval);  
 
     React.useEffect(
         () => {
-          let timer1;
-          if (timeLeft > 0 && resting === false) {
-            timer1 = setTimeout(() => setTimeLeft(timeLeft-1), 1000);
-          } else if(restingTimeLeft > 0 && resting === true) {
-                setResting(true)
-                timer1 = setTimeout(() => setRestingTimeLeft(restingTimeLeft-1), 1000);
-            //   setRestingTimeLeft(props.model.restingInterval);
+          let timer;
+          if (timeLeft > 0) {
+            timer = setTimeout(() => setTimeLeft(prevTime => prevTime-1), 1000);
+          } else if(restingTimeLeft > 0) {
+                timer = setTimeout(() => setRestingTimeLeft(prevTime => prevTime-1), 1000);
           } else {
             setTimeLeft(props.model.workOutInterval);
-            setRestingTimeLeft(props.model.restingTimeLeft);
-            setResting(false)
-
+            setRestingTimeLeft(props.model.restingInterval);
           }
     
           // this will clear Timeout
-          // when component unmount like in willComponentUnmount
-          // and show will not change to true
           return () => {
-            clearTimeout(timer1);
+            clearTimeout(timer);
           };
         },
         // useEffect will run only one time with empty []
@@ -37,7 +27,7 @@ function ActiveWorkoutPresenter(props) {
         // like this - [data]
         // than clearTimeout will run every time
         // this value changes (useEffect re-run)
-        [timeLeft, restingTimeLeft]
+        [timeLeft, restingTimeLeft, props.model.workOutInterval, props.model.restingInterval]
       );
 
 

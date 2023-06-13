@@ -1,5 +1,11 @@
 .App {
   text-align: center;
+  display: flex;
+  justify-content: center; /* Align horizontally */
+  align-items: center; /* Align vertically */
+  height: 100vh;
+  margin: 0; /* Remove default margins */
+  background-color: #282c34;
 }
 
 .App-logo {
@@ -22,6 +28,35 @@
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
+}
+
+#activeWorkout {
+  padding: 10px;
+  background-color: white;
+
+}
+
+#setup {
+  padding: 10px;
+  background-color: white;
+}
+
+#endButton {
+  margin-top: 20px;
+  padding: 15px;
+  background-color: bisque;
+  border-radius: 12px;
+}
+
+#normalSecondsSpan {
+  font-size: 50px;
+  font-weight: bold;
+}
+
+#lastSecondsSpan {
+  font-size: 50px;
+  font-weight: bold;
+  color: red; /* or any other color for the last 5 seconds */
 }
 
 .App-link {

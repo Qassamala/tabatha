@@ -10,12 +10,12 @@ function App(props) {
   React.useEffect( 
     function () {
         function obs(){
-          console.log("was here")
-          console.log(props.model.started)
-          console.log(started)
+          // console.log("was here")
+          // console.log(props.model.started)
+          // console.log(started)
 
             setStarted(props.model.started);
-            console.log(started)
+            // console.log(started)
         }
         props.model.addObserver(obs);
         return function() { 
