@@ -32,13 +32,13 @@
 
 #activeWorkout {
   padding: 10px;
-  background-color: white;
+  /* background-color: white; */
 
 }
 
 #setup {
   padding: 10px;
-  background-color: white;
+  /* background-color: white; */
 }
 
 #endButton {
@@ -48,9 +48,17 @@
   border-radius: 12px;
 }
 
+#startButton {
+  margin-top: 20px;
+  padding: 15px;
+  background-color: bisque;
+  border-radius: 12px;
+}
+
 #normalSecondsSpan {
   font-size: 50px;
   font-weight: bold;
+  color: white;
 }
 
 #lastSecondsSpan {

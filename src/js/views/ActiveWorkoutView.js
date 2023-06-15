@@ -4,16 +4,15 @@ function ActiveWorkoutView(props) {
     
     return(
         <div>
+            <label>Rounds left:{props.roundsLeft}</label>
             <div id="activeWorkout">
                 <div>
-                <label>WorkoutInterval:</label>
                 {props.timeLeft > 5
                     ? <span id="normalSecondsSpan">{props.timeLeft}</span>
                     : <span id="lastSecondsSpan">{props.timeLeft}</span>
                 }               
                 </div>
                 <div>
-                <label>Resting Interval:</label>
                 {props.restingTimeLeft > 5
                     ? <span id="normalSecondsSpan">{props.restingTimeLeft}</span>
                     : <span id="lastSecondsSpan">{props.restingTimeLeft}</span>
