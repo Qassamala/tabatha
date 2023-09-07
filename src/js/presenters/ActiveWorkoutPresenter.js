@@ -4,7 +4,8 @@ import ActiveWorkoutView from "../views/ActiveWorkoutView";
 function ActiveWorkoutPresenter(props) {
     const [timeLeft, setTimeLeft] = React.useState(props.model.workOutInterval);
     const [restingTimeLeft, setRestingTimeLeft] = React.useState(props.model.restingInterval);
-    const [roundsLeft, setRoundsLeft] = React.useState(props.model.numberOfRounds);   
+    const [roundsLeft, setRoundsLeft] = React.useState(props.model.numberOfRounds);
+    const [isResting, setIsResting] = React.useState(false);  
 
     React.useEffect(
         () => {
@@ -13,31 +14,41 @@ function ActiveWorkoutPresenter(props) {
             props.model.setEndWorkOut()
           }
 
-          let timer;
+          let activeTimer;
+          let restTimer;
 
-          if (timeLeft > 0) {
-            timer = setTimeout(() => setTimeLeft(prevTime => prevTime-1), 1000);
-          } else if (timeLeft === 0) {
-
-          } else if(restingTimeLeft > 0) {
-                timer = setTimeout(() => setRestingTimeLeft(prevTime => prevTime-1), 1000);
-          } else {
-            setTimeLeft(props.model.workOutInterval);
-            setRestingTimeLeft(props.model.restingInterval);
+          // Decrement active time
+          if (timeLeft > 0 && !isResting) {
+            activeTimer = setTimeout(() => setTimeLeft(prevTime => prevTime-1), 1000);
+          } else if(!isResting && roundsLeft > 0) {
+            console.log("abdi")
+            setIsResting(true);
             setRoundsLeft(prev => prev-1)
           }
+
+          // Decrement resting time
+          if (isResting && restingTimeLeft > 0 && roundsLeft > 0) {
+            console.log("abdi2")
+            restTimer = setTimeout(() => setRestingTimeLeft(prevTime => prevTime-1), 1000);
+          } else if (isResting && roundsLeft > 0) {
+            setIsResting(false)
+            setTimeLeft(props.model.workOutInterval);
+            
+            console.log("roundsleft: ", roundsLeft)
+            if(roundsLeft > 1){
+              setRestingTimeLeft(props.model.restingInterval);
+            }
+          }
+
+
     
           // this will clear Timeout
           return () => {
-            clearTimeout(timer);
+            clearTimeout(activeTimer);
+            clearTimeout(restTimer);
           };
         },
-        // useEffect will run only one time with empty []
-        // if you pass a value to array,
-        // like this - [data]
-        // than clearTimeout will run every time
-        // this value changes (useEffect re-run)
-        [timeLeft, restingTimeLeft, roundsLeft, props.model, props.model.workOutInterval, props.model.restingInterval]
+        [isResting, timeLeft, restingTimeLeft, roundsLeft, props.model, props.model.workOutInterval, props.model.restingInterval]
       );
 
 

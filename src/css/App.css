@@ -30,6 +30,12 @@
   color: white;
 }
 
+#labelText {
+  margin: 10 px;
+  color: lightskyblue;
+  text-align: center;
+}
+
 #activeWorkout {
   padding: 10px;
   /* background-color: white; */

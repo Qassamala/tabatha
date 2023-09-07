@@ -4,7 +4,9 @@ function ActiveWorkoutView(props) {
     
     return(
         <div>
-            <label>Rounds left:{props.roundsLeft}</label>
+            {props.roundsLeft === 1
+            ? <label id="labelText">Final round!</label>
+            : <label id="labelText">Rounds left: {props.roundsLeft}</label>}
             <div id="activeWorkout">
                 <div>
                 {props.timeLeft > 5
